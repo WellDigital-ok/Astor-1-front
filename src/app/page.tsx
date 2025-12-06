@@ -56,7 +56,7 @@ export default function Home() {
             />
             <Button
               asChild
-              className="absolute bottom-[10.5%] left-1/2 -translate-x-1/2 w-3/4 max-w-xs bg-[#b8d5d9] text-[#555] font-semibold tracking-wider hover:bg-[#a7c3c7] rounded-full text-sm h-9"
+              className="absolute bottom-[10.5%] left-1/2 -translate-x-1/2 w-3/4 max-w-xs bg-[#b8d5d9] text-[#555] font-semibold tracking-wider hover:bg-[#a7c3c7] rounded-full text-sm h-9 transform transition-transform hover:scale-105"
             >
               <Link href="/confirm">CONFIRMAR ASISTENCIA</Link>
             </Button>

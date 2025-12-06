@@ -162,7 +162,7 @@ export function ConfirmationForm() {
             <Button
               type="button"
               variant="link"
-              className="text-accent-foreground/80 hover:text-accent-foreground px-0"
+              className="text-primary hover:text-primary/80 px-0"
               onClick={() => append({ name: '', lastName: '' })}
             >
               <PlusCircle className="mr-2 h-4 w-4" />+ Agregar invitado
