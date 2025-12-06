@@ -20,14 +20,7 @@ type Guest = {
   lastName: string;
 };
 
-// Mock data as requested
-const mockGuests: Guest[] = [
-  { id: 1, name: 'Juan', lastName: 'Pérez' },
-  { id: 2, name: 'María', lastName: 'García' },
-  { id: 3, name: 'Carlos', lastName: 'López' },
-  { id: 4, name: 'Ana', lastName: 'Martínez' },
-  { id: 5, name: 'Luis', lastName: 'Rodríguez' },
-];
+
 
 export default function ListPage() {
   const [guests, setGuests] = useState<Guest[]>([]);
@@ -36,25 +29,20 @@ export default function ListPage() {
 
   useEffect(() => {
     // In a real scenario, you would fetch data from the API
-    // const fetchGuests = async () => {
-    //   try {
-    //     const apiUrl = process.env.NEXT_PUBLIC_API_URL || '/api';
-    //     const response = await fetch(`${apiUrl}/invite`);
-    //     const data = await response.json();
-    //     setGuests(data);
-    //   } catch (error) {
-    //     console.error('Error fetching guests:', error);
-    //   } finally {
-    //     setLoading(false);
-    //   }
-    // };
-    // fetchGuests();
-
-    // Using mock data for now
-    setTimeout(() => {
-        setGuests(mockGuests);
+    const fetchGuests = async () => {
+      try {
+        const apiUrl = process.env.NEXT_PUBLIC_API_URL || '/api';
+        const response = await fetch(`${apiUrl}/list`);
+        const data = await response.json();
+        setGuests(data);
+      } catch (error) {
+        console.error('Error fetching guests:', error);
+      } finally {
         setLoading(false);
-    }, 1000); // Simulate network delay
+      }
+    };
+    fetchGuests();
+
   }, []);
 
   return (
