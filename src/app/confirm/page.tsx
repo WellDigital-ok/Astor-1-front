@@ -1,10 +1,14 @@
-import { PartyPopper } from 'lucide-react';
+'use client';
+
+import Link from 'next/link';
+import { ArrowLeft, PartyPopper } from 'lucide-react';
 import { ConfirmationForm } from '@/components/ConfirmationForm';
 import { PartyHatIcon } from '@/components/icons';
 import { cn } from '@/lib/utils';
+import { Button } from '@/components/ui/button';
 
 export default function ConfirmPage() {
-  const decorativeClasses = 'text-accent/30 absolute hidden lg:block';
+  const decorativeClasses = 'text-primary/30 absolute hidden lg:block';
 
   return (
     <main className="relative min-h-screen w-full overflow-hidden bg-background flex flex-col items-center justify-center p-4">
@@ -33,6 +37,18 @@ export default function ConfirmPage() {
       <PartyPopper
         className={cn(decorativeClasses, 'w-16 h-16 bottom-10 left-1/3 rotate-[5deg]')}
       />
+
+      <Button
+        asChild
+        variant="ghost"
+        className="absolute top-4 left-4 z-20"
+      >
+        <Link href="/">
+          <ArrowLeft className="mr-2 h-4 w-4" />
+          Volver
+        </Link>
+      </Button>
+
 
       <div className="relative z-10 w-full max-w-lg space-y-6">
         <div className="text-center">

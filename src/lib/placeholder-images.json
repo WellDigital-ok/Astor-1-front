@@ -3,8 +3,8 @@
     {
       "id": "invitation-card",
       "description": "Astor's first birthday invitation card.",
-      "imageUrl": "https://storage.googleapis.com/aifirebase/images/8a98319f-07e0-4107-8e6f-45b642657e5b.png",
-      "imageHint": "birthday invitation"
+      "imageUrl": "/tarjeta-base.jpeg",
+      "imageHint": "birthday invitation card"
     }
   ]
 }
