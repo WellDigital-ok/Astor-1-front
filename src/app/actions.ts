@@ -22,7 +22,7 @@ export async function submitAttendance(
   }
 
   try {
-    const response = await fetch(`${apiUrl}/invite`, {
+    const response = await fetch(`https://${apiUrl}/invite`, {
       method: 'POST',
       headers: {
         'Content-Type': 'application/json',

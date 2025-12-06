@@ -34,7 +34,7 @@ export default function ListPage() {
         if (!apiUrl) {
           throw new Error("API_URL is not defined");
         }
-        const response = await fetch(`${apiUrl}/list`);
+        const response = await fetch(`https://${apiUrl}/list`);
         if (!response.ok) {
           throw new Error('Failed to fetch guests');
         }
