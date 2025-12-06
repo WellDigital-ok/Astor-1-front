@@ -11,7 +11,6 @@ import {
   Trash2,
 } from 'lucide-react';
 
-import { submitAttendance } from '@/app/actions';
 import { Button } from '@/components/ui/button';
 import {
   Card,
@@ -31,6 +30,7 @@ import {
 import { Input } from '@/components/ui/input';
 import { Separator } from '@/components/ui/separator';
 import { useToast } from '@/hooks/use-toast';
+import { useApi } from '@/context/ApiContext';
 
 const guestSchema = z.object({
   name: z.string().min(2, { message: 'Por favor, introduce un nombre.' }),
@@ -42,11 +42,14 @@ const formSchema = z.object({
 });
 
 type FormData = z.infer<typeof formSchema>;
+export type Guest = z.infer<typeof guestSchema>;
+
 
 export function ConfirmationForm() {
   const [isSubmitting, setIsSubmitting] = useState(false);
   const [isSuccess, setIsSuccess] = useState(false);
   const { toast } = useToast();
+  const { submitGuests } = useApi();
 
   const form = useForm<FormData>({
     resolver: zodResolver(formSchema),
@@ -63,21 +66,21 @@ export function ConfirmationForm() {
 
   async function onSubmit(data: FormData) {
     setIsSubmitting(true);
-    const result = await submitAttendance(data.guests);
-    setIsSubmitting(false);
-
-    if (result.success) {
+    try {
+      await submitGuests(data.guests);
       toast({
         title: '¡Éxito!',
-        description: result.message,
+        description: '¡Confirmación enviada con éxito! ¡Gracias!',
       });
       setIsSuccess(true);
-    } else {
-      toast({
+    } catch (error: any) {
+       toast({
         variant: 'destructive',
         title: '¡Oh no! Algo salió mal.',
-        description: result.message,
+        description: error.message || 'No se pudo enviar la confirmación.',
       });
+    } finally {
+      setIsSubmitting(false);
     }
   }
 

@@ -1,6 +1,7 @@
 import type { Metadata } from 'next';
 import './globals.css';
 import { Toaster } from '@/components/ui/toaster';
+import { ApiProvider } from '@/context/ApiContext';
 
 export const metadata: Metadata = {
   title: 'Astor Cumple 1 !',
@@ -41,8 +42,10 @@ export default function RootLayout({
         />
       </head>
       <body className="font-body antialiased">
-        {children}
-        <Toaster />
+        <ApiProvider>
+          {children}
+          <Toaster />
+        </ApiProvider>
       </body>
     </html>
   );

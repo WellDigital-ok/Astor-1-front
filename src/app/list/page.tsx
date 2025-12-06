@@ -1,54 +1,25 @@
 'use client';
 
-import { useState, useEffect } from 'react';
+import { useEffect } from 'react';
 import Link from 'next/link';
 import { ArrowLeft, UserCheck, PartyPopper } from 'lucide-react';
 import { Button } from '@/components/ui/button';
 import {
   Card,
   CardContent,
-  CardHeader,
-  CardTitle,
 } from '@/components/ui/card';
 import { PartyHatIcon } from '@/components/icons';
 import { cn } from '@/lib/utils';
 import { Skeleton } from '@/components/ui/skeleton';
-
-type Guest = {
-  id: number;
-  name: string;
-  lastName: string;
-};
-
-
+import { useApi } from '@/context/ApiContext';
 
 export default function ListPage() {
-  const [guests, setGuests] = useState<Guest[]>([]);
-  const [loading, setLoading] = useState(true);
+  const { guests, loading, error, fetchGuests } = useApi();
   const decorativeClasses = 'text-primary/30 absolute hidden lg:block';
 
   useEffect(() => {
-    const fetchGuests = async () => {
-      try {
-        const apiUrl = process.env.NEXT_PUBLIC_API_URL;
-        if (!apiUrl) {
-          throw new Error("API_URL is not defined");
-        }
-        const response = await fetch(`https://${apiUrl}/list`);
-        if (!response.ok) {
-          throw new Error('Failed to fetch guests');
-        }
-        const data = await response.json();
-        setGuests(data);
-      } catch (error) {
-        console.error('Error fetching guests:', error);
-      } finally {
-        setLoading(false);
-      }
-    };
     fetchGuests();
-
-  }, []);
+  }, [fetchGuests]);
 
   return (
     <main className="relative min-h-screen w-full overflow-hidden bg-background flex flex-col items-center justify-center p-4">
@@ -95,6 +66,12 @@ export default function ListPage() {
                     </CardContent>
                 </Card>
              ))
+          ) : error ? (
+            <Card className="w-full bg-destructive/20 border-destructive">
+                <CardContent className="p-6 text-center text-destructive-foreground">
+                    <p>Error al cargar los invitados: {error}</p>
+                </CardContent>
+            </Card>
           ) : guests.length > 0 ? (
             guests.map((guest, index) => (
               <Card
