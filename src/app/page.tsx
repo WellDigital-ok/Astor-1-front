@@ -69,15 +69,13 @@ export default function Home() {
           ¡A traer la magia!
         </p>
 
-        <Link href="/confirm" legacyBehavior passHref>
-          <Button
-            asChild
-            size="lg"
-            className="w-full max-w-xs text-lg font-semibold rounded-full bg-accent text-accent-foreground shadow-md hover:shadow-xl hover:-translate-y-1 transition-all duration-300 ease-in-out focus:ring-2 focus:ring-accent focus:ring-offset-2 focus:ring-offset-background"
-          >
-            <a>Confirmar asistencia</a>
-          </Button>
-        </Link>
+        <Button
+          asChild
+          size="lg"
+          className="w-full max-w-xs text-lg font-semibold rounded-full bg-accent text-accent-foreground shadow-md hover:shadow-xl hover:-translate-y-1 transition-all duration-300 ease-in-out focus:ring-2 focus:ring-accent focus:ring-offset-2 focus:ring-offset-background"
+        >
+          <Link href="/confirm">Confirmar asistencia</Link>
+        </Button>
       </div>
     </main>
   );
