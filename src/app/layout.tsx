@@ -4,14 +4,16 @@ import { Toaster } from '@/components/ui/toaster';
 import { ApiProvider } from '@/context/ApiContext';
 
 export const metadata: Metadata = {
+  metadataBase: new URL('https://astor.up.railway.app'),
   title: 'Astor Cumple 1 !',
   description: 'Te esperamos para compartir un día extraordinario , no faltes!',
   openGraph: {
     title: 'Astor Cumple 1 !',
     description: 'Te esperamos para compartir un día extraordinario , no faltes!',
+    url: '/',
     images: [
       {
-        url: '/metadata.jpeg',
+        url: '/metadata.jpeg', // relativo a metadataBase
         width: 1200,
         height: 630,
         alt: 'Invitación al cumpleaños de Astor',
@@ -27,12 +29,8 @@ export default function RootLayout({
 }: Readonly<{
   children: React.ReactNode;
 }>) {
-  const pageUrl = process.env.NEXT_PUBLIC_API_URL
-    ? `https://${process.env.NEXT_PUBLIC_API_URL.split('/api')[0]}`
-    : '';
-
   return (
-    <html lang="en">
+    <html lang="es">
       <head>
         <link rel="preconnect" href="https://fonts.googleapis.com" />
         <link
@@ -44,14 +42,7 @@ export default function RootLayout({
           href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;600;700&display=swap"
           rel="stylesheet"
         />
-        <meta property="og:title" content="Astor Cumple 1 !" />
-        <meta
-          property="og:description"
-          content="Te esperamos para compartir un día extraordinario , no faltes!"
-        />
-        <meta property="og:image" content={`${pageUrl}/metadata.jpeg`} />
-        <meta property="og:url" content={pageUrl} />
-        <meta property="og:type" content="website" />
+        {/* No hace falta repetir og: acá, Next ya los genera desde `metadata` */}
       </head>
       <body className="font-body antialiased">
         <ApiProvider>
