@@ -28,7 +28,7 @@ export const ApiProvider: React.FC<{ children: React.ReactNode }> = ({ children 
   if (!apiUrl) {
     throw new Error("NEXT_PUBLIC_API_URL is not defined in .env file");
   }
-  const BASE_URL = `https://${apiUrl}`;
+  const BASE_URL = apiUrl;
 
 
   const fetchGuests = useCallback(async () => {
