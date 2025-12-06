@@ -28,11 +28,16 @@ export default function ListPage() {
   const decorativeClasses = 'text-primary/30 absolute hidden lg:block';
 
   useEffect(() => {
-    // In a real scenario, you would fetch data from the API
     const fetchGuests = async () => {
       try {
-        const apiUrl = process.env.NEXT_PUBLIC_API_URL || '/api';
+        const apiUrl = process.env.NEXT_PUBLIC_API_URL;
+        if (!apiUrl) {
+          throw new Error("API_URL is not defined");
+        }
         const response = await fetch(`${apiUrl}/list`);
+        if (!response.ok) {
+          throw new Error('Failed to fetch guests');
+        }
         const data = await response.json();
         setGuests(data);
       } catch (error) {
@@ -80,13 +85,12 @@ export default function ListPage() {
 
         <div className="max-h-[60vh] overflow-y-auto pr-2 space-y-4">
           {loading ? (
-             Array.from({ length: 3 }).map((_, index) => (
+             Array.from({ length: 5 }).map((_, index) => (
                 <Card key={index} className="w-full bg-card/80 backdrop-blur-sm border-primary/30">
                     <CardContent className="p-4 flex items-center gap-4">
                         <Skeleton className="h-10 w-10 rounded-full" />
                         <div className="space-y-2 flex-1">
                             <Skeleton className="h-4 w-3/4" />
-                            <Skeleton className="h-4 w-1/2" />
                         </div>
                     </CardContent>
                 </Card>
@@ -100,7 +104,7 @@ export default function ListPage() {
               >
                 <CardContent className="p-4 flex items-center gap-4">
                   <div className="flex-shrink-0 h-10 w-10 rounded-full bg-accent/20 text-accent flex items-center justify-center font-bold text-lg">
-                    {index + 1}
+                    <UserCheck className="h-5 w-5" />
                   </div>
                   <div>
                     <p className="font-semibold text-foreground/90 text-lg">

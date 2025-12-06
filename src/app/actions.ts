@@ -32,6 +32,7 @@ export async function submitAttendance(
 
     if (!response.ok) {
       const errorData = await response.json().catch(() => ({}));
+      console.error('API error response:', errorData);
       return {
         success: false,
         message: `Ocurrió un error: ${errorData.message || response.statusText}`,
