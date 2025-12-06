@@ -25,13 +25,14 @@ export const ApiProvider: React.FC<{ children: React.ReactNode }> = ({ children 
   const [error, setError] = useState<string | null>(null);
 
   const apiUrl = process.env.NEXT_PUBLIC_API_URL;
-  if (!apiUrl) {
-    throw new Error("NEXT_PUBLIC_API_URL is not defined in .env file");
-  }
-  const BASE_URL = apiUrl;
+  const BASE_URL = apiUrl ? `https://${apiUrl}` : '';
 
 
   const fetchGuests = useCallback(async () => {
+    if (!BASE_URL) {
+      setError("API_URL is not defined");
+      return;
+    }
     setLoading(true);
     setError(null);
     try {
@@ -50,6 +51,9 @@ export const ApiProvider: React.FC<{ children: React.ReactNode }> = ({ children 
   }, [BASE_URL]);
 
   const submitGuests = useCallback(async (newGuests: Guest[]) => {
+    if (!BASE_URL) {
+      throw new Error("API_URL is not defined");
+    }
     const response = await fetch(`${BASE_URL}/invite`, {
       method: 'POST',
       headers: {
