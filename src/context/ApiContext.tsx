@@ -54,7 +54,7 @@ export const ApiProvider: React.FC<{ children: React.ReactNode }> = ({ children 
     if (!BASE_URL) {
       throw new Error("API_URL is not defined");
     }
-    const response = await fetch(`${BASE_URL}/invite`, {
+    const response = await fetch(`${BASE_URL}/list`, {
       method: 'POST',
       headers: {
         'Content-Type': 'application/json',
