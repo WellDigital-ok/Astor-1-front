@@ -59,9 +59,16 @@ export const ApiProvider: React.FC<{ children: React.ReactNode }> = ({ children 
     });
 
     if (!response.ok) {
-        const errorData = await response.json().catch(() => ({}));
-        console.error('API error response:', errorData);
-        throw new Error(`Ocurrió un error: ${errorData.message || response.statusText}`);
+        const errorText = await response.text();
+        console.error('API error response:', errorText);
+        let message = response.statusText;
+        try {
+          const errorData = JSON.parse(errorText);
+          message = errorData.message || message;
+        } catch (e) {
+          // Not a JSON response
+        }
+        throw new Error(`Ocurrió un error: ${message}`);
     }
     // After successful submission, refresh the guest list
     await fetchGuests();
