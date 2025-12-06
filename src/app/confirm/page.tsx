@@ -1,5 +1,6 @@
 'use client';
 
+import { useState } from 'react';
 import Link from 'next/link';
 import { ArrowLeft, PartyPopper } from 'lucide-react';
 import { ConfirmationForm } from '@/components/ConfirmationForm';
@@ -8,6 +9,7 @@ import { cn } from '@/lib/utils';
 import { Button } from '@/components/ui/button';
 
 export default function ConfirmPage() {
+  const [isSuccess, setIsSuccess] = useState(false);
   const decorativeClasses = 'text-primary/30 absolute hidden lg:block';
 
   return (
@@ -53,13 +55,15 @@ export default function ConfirmPage() {
       <div className="relative z-10 w-full max-w-lg space-y-6">
         <div className="text-center">
           <h1 className="text-4xl md:text-5xl font-headline font-bold text-foreground/80 tracking-tight">
-            Confirmar tu asistencia
+            {isSuccess ? 'Asistencia Confirmada' : 'Confirmar tu asistencia'}
           </h1>
-          <p className="mt-2 text-foreground/60">
-            ¡Estamos ansiosos por celebrar contigo!
-          </p>
+          {!isSuccess && (
+            <p className="mt-2 text-foreground/60">
+              ¡Estamos ansiosos por celebrar contigo!
+            </p>
+          )}
         </div>
-        <ConfirmationForm />
+        <ConfirmationForm onSubmitted={() => setIsSuccess(true)} />
       </div>
     </main>
   );

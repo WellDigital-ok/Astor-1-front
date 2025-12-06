@@ -45,7 +45,7 @@ type FormData = z.infer<typeof formSchema>;
 export type Guest = z.infer<typeof guestSchema>;
 
 
-export function ConfirmationForm() {
+export function ConfirmationForm({ onSubmitted }: { onSubmitted: () => void }) {
   const [isSubmitting, setIsSubmitting] = useState(false);
   const [isSuccess, setIsSuccess] = useState(false);
   const { toast } = useToast();
@@ -73,6 +73,7 @@ export function ConfirmationForm() {
         description: '¡Confirmación enviada con éxito! ¡Gracias!',
       });
       setIsSuccess(true);
+      onSubmitted();
     } catch (error: any) {
        toast({
         variant: 'destructive',
