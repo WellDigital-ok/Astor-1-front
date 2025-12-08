@@ -81,7 +81,7 @@ export default function ListPage() {
               >
                 <CardContent className="p-4 flex items-center gap-4">
                   <div className="flex-shrink-0 h-10 w-10 rounded-full bg-accent/20 text-accent flex items-center justify-center font-bold text-lg">
-                    <UserCheck className="h-5 w-5" />
+                    <span className="text-sm">{index + 1}</span>
                   </div>
                   <div>
                     <p className="font-semibold text-foreground/90 text-lg">
@@ -99,6 +99,11 @@ export default function ListPage() {
             </Card>
           )}
         </div>
+        {!loading && !error && (
+            <div className="text-center font-bold text-lg text-foreground/80 pt-4">
+                Total de invitados: {guests.length}
+            </div>
+        )}
       </div>
     </main>
   );
